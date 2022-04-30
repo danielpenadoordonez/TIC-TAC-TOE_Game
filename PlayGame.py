@@ -2,15 +2,15 @@ from random import randrange
 import time 
 import subprocess
 from Game import Game
-    
-print("""
-==============================
-Player = 0
-Machine = X
-==============================
-""")
 
 game = Game()
+    
+print(f"""
+==============================
+Player(You) = {game.BLUE}0{game.CLEAR}
+Machine = {game.GREEN}X{game.CLEAR}
+==============================
+""")
 
 while True:
     print("YOUR TURN......")
@@ -59,6 +59,15 @@ while True:
             else:
                 print("There was an error")
                 break
+        #Se verifica si hay un empate luego de la jugada del usuario
+        numsBoard = game.numbers_In_Board()
+        if numsBoard == 0:
+            print("Game Over, TIE\n")
+            if Game.play_Again():
+                game.restartGame()
+                continue
+            else:
+                break 
         print("MACHINE......")
         time.sleep(1)
         game.machineMove()
@@ -83,6 +92,7 @@ while True:
             else:
                 print("There was an error")
                 break
+        #Se verifica si hay un empate luego de la jugada de la maquina
         numsBoard = game.numbers_In_Board()
         if numsBoard == 0:
             print("Game Over, TIE\n")
