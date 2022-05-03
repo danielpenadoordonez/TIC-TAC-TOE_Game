@@ -15,6 +15,8 @@ class Game:
         self.row2 = [4, 5, 6]
         self.row3 = [7, 8, 9]
         self.winner = None
+        self.playerOption = None
+        self.machineOption = None
         self.createBoard()
 
     def createBoard(self):
@@ -59,17 +61,17 @@ class Game:
             for j in range(len(self.row1)):
                 if cont == 1:
                     if self.row1[j] == move:
-                        self.row1[j] = f'{self.BLUE}O{self.CLEAR}'
+                        self.row1[j] = self.playerOption
                 elif cont == 2:
                     if self.row2[j] == move:
-                        self.row2[j] = f'{self.BLUE}O{self.CLEAR}'
+                        self.row2[j] = self.playerOption
                 elif cont == 3:
                     if self.row3[j] == move:
-                        self.row3[j] = f'{self.BLUE}O{self.CLEAR}'
+                        self.row3[j] = self.playerOption
             cont += 1            
 
     def machineMove(self):
-        machineAI = MachineAI(self.board)
+        machineAI = MachineAI(self.board, self.playerOption, self.machineOption)
         #Ciclo para validar que la opcion aleatoria este disponible
         machineChoice = 0
         invalid = True
@@ -85,13 +87,13 @@ class Game:
             for j in range(len(self.row1)):
                 if cont == 1:
                     if self.row1[j] == machineChoice:
-                        self.row1[j] = f'{self.GREEN}X{self.CLEAR}'
+                        self.row1[j] = self.machineOption
                 elif cont == 2:
                     if self.row2[j] == machineChoice:
-                        self.row2[j] = f'{self.GREEN}X{self.CLEAR}'
+                        self.row2[j] = self.machineOption
                 elif cont == 3:
                     if self.row3[j] == machineChoice:
-                        self.row3[j] = f'{self.GREEN}X{self.CLEAR}'
+                        self.row3[j] = self.machineOption
             cont += 1
 
     def numbers_In_Board(self):
@@ -101,38 +103,36 @@ class Game:
         for row in range(len(self.board)):
             for column in range(len(self.board[0])):
                 space = self.board[row][column]
-                if space != f'{self.BLUE}O{self.CLEAR}' and space != f'{self.GREEN}X{self.CLEAR}':
+                if space != self.playerOption and space != self.machineOption:
                     numbers += 1
         return numbers 
 
 
     def victory(self):
-        userOption = f'{self.BLUE}O{self.CLEAR}'
-        machineOption = f'{self.GREEN}X{self.CLEAR}'
         #Se recorre todas las filas del tablero 
         for row in self.board:
             #Se recorre primero las filas horizontalmente para validar que haya gane
-            if row[0] == userOption and row[1] == userOption and row[2] == userOption:
+            if row[0] == self.playerOption and row[1] == self.playerOption and row[2] == self.playerOption:
                 self.winner = "user"
                 return True 
-            if row[0] == machineOption and row[1] == machineOption and row[2] == machineOption:
+            if row[0] == self.machineOption and row[1] == self.machineOption and row[2] == self.machineOption:
                 self.winner = "machine"
                 return True 
         #Si no hubo un gane de manera horizontal se revisa de manera vertical
         for index in range(len(self.board)):
-            if self.row1[index] == userOption and self.row2[index] == userOption and self.row3[index] == userOption:
+            if self.row1[index] == self.playerOption and self.row2[index] == self.playerOption and self.row3[index] == self.playerOption:
                 self.winner = "user"
                 return True
-            if self.row1[index] == machineOption and self.row2[index] == machineOption and self.row3[index] == machineOption:
+            if self.row1[index] == self.machineOption and self.row2[index] == self.machineOption and self.row3[index] == self.machineOption:
                 self.winner = "machine"
                 return True 
         #Si tampoco hubo gane de manera horizontal se tiene que revisar si hubo un gane de forma diagonal
-        if self.row2[1] == machineOption:
-            if self.row1[0] == machineOption and self.row3[2] == machineOption or self.row1[2] == machineOption and self.row3[0] == machineOption:
+        if self.row2[1] == self.machineOption:
+            if self.row1[0] == self.machineOption and self.row3[2] == self.machineOption or self.row1[2] == self.machineOption and self.row3[0] == self.machineOption:
                 self.winner = "machine"
                 return True
-        if self.row2[1] == userOption:
-            if self.row1[0] == userOption and self.row3[2] == userOption or self.row1[2] == userOption and self.row3[0] == userOption:
+        if self.row2[1] == self.playerOption:
+            if self.row1[0] == self.playerOption and self.row3[2] == self.playerOption or self.row1[2] == self.playerOption and self.row3[0] == self.playerOption:
                 self.winner = "user"
                 return True
         return False #Se retorna False si no hubo gane de ninguna forma

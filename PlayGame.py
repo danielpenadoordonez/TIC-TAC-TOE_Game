@@ -1,14 +1,29 @@
 from random import randrange
 import time 
 import subprocess
+import platform
 from Game import Game
 
+RUNNING_OS = platform.system()
+playerOption = None
+machineOption = None
+
 game = Game()
+
+if RUNNING_OS == "Windows":
+    playerOption = 'O'
+    machineOption = 'X'
+else:
+    playerOption = f'{game.BLUE}O{game.CLEAR}'
+    machineOption = f'{game.GREEN}X{game.CLEAR}'
+
+game.playerOption = playerOption
+game.machineOption = machineOption
     
 print(f"""
 ==============================
-Player(You) = {game.BLUE}0{game.CLEAR}
-Machine = {game.GREEN}X{game.CLEAR}
+Player(You) = {playerOption}
+Machine = {machineOption}
 ==============================
 """)
 
