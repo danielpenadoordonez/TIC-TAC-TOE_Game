@@ -1,5 +1,6 @@
 from random import randrange
 import time
+from MachineAI import MachineAI
 
 class Game:
 
@@ -30,6 +31,8 @@ class Game:
         self.board.append(self.row1)
         self.board.append(self.row2)
         self.board.append(self.row3)
+        MachineAI.turns = 0
+        MachineAI.hasCenterPosition = False
 
     def displayBoard(self):
         r1, r2, r3 = self.row1, self.row2, self.row3
@@ -66,27 +69,28 @@ class Game:
             cont += 1            
 
     def machineMove(self):
-        invalid = True
+        machineAI = MachineAI(self.board)
         #Ciclo para validar que la opcion aleatoria este disponible
-        machineOption = 0
+        machineChoice = 0
+        invalid = True
         while invalid:
-            randNum = randrange(1,10)
+            randNum = machineAI.runAI()
             if randNum in self.row1 or randNum in self.row2 or randNum in self.row3:
                 invalid = False 
-                machineOption = randNum 
+                machineChoice = randNum 
         cont = 1   
         #Recorre las tres filas del tablero
         for i in range(len(self.board)):
             #Recorre cada una de las filas dependiendo del contador, este indica la fila que va evaluar
             for j in range(len(self.row1)):
                 if cont == 1:
-                    if self.row1[j] == machineOption:
+                    if self.row1[j] == machineChoice:
                         self.row1[j] = f'{self.GREEN}X{self.CLEAR}'
                 elif cont == 2:
-                    if self.row2[j] == machineOption:
+                    if self.row2[j] == machineChoice:
                         self.row2[j] = f'{self.GREEN}X{self.CLEAR}'
                 elif cont == 3:
-                    if self.row3[j] == machineOption:
+                    if self.row3[j] == machineChoice:
                         self.row3[j] = f'{self.GREEN}X{self.CLEAR}'
             cont += 1
 
