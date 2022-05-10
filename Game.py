@@ -146,9 +146,9 @@ class Game:
         answer = input("PLAY AGAIN ??? (Y/N): ")
         if answer == 'Y' or answer == 'y' or answer == "Yes" or answer == "yes":
             print("""
-            ===========================
-            RESTARTING THE GAME  
-            ===========================""")
+            ===========================================
+            RESTARTING THE GAME / REINICIANDO EL JUEGO 
+            ===========================================""")
             time.sleep(2)  
             return True
         else:

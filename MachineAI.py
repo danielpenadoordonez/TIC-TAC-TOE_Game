@@ -1,10 +1,9 @@
-import numpy as np
 from random import randrange
 
 class MachineAI:
 
     turns = 0
-    hasCenterPosition : bool = False
+    #hasCenterPosition : bool = False
     BLUE = '\033[94m'
     GREEN = '\033[92m'
     CLEAR = '\033[0m'
@@ -22,38 +21,18 @@ class MachineAI:
         #Se crea una copia de cada fila del tablero
         self.currentBoard = [row[:] for row in board]
 
-    def is_Center_Available(self):
-        #Hay que verificar si hay un numero en el centro
-        try:
-            centerValue : int = int(self.currentBoard[1][1])
-        except ValueError:
-            #El centro del tablero no esta disponible porque no contiene un numero
-            return False
-        else:
-            #El centro del tablero si estád disponible
-            return True
-
     def runAI(self) -> int:
-        #Primero se verifica si el centro está disponible
-        if self.is_Center_Available():
-            MachineAI.hasCenterPosition = True
-            return 5
-        #Se tiene que buscar una esquina
-        #Si pudo seleccionar el centro
-        if MachineAI.hasCenterPosition:
-            if MachineAI.turns == 2:
-                #Primero se tiene que ver si el jugador tiene opcion de gane
-                winningPosition = self.study_Player_Positions()
-                if winningPosition > 0:
-                    return winningPosition
-                #Si no entonces se elije una esquina del tablero
-                cornerNums = [1, 3, 7, 9]
-                return int(np.random.choice(cornerNums, 1))
-        else:
-            #Si el centro del tablero no fue seleccionado por la maquina
-            if MachineAI.turns == 1:
-                cornerNums = [1, 3, 7, 9]
-                return int(np.random.choice(cornerNums, 1))
+        #Evaluacion de jugadas
+        move = self.study_Moves()
+        if move > 0:
+            return move
+
+        if MachineAI.turns == 2:
+            #Primero se tiene que ver si el jugador ya tiene opcion de gane
+            playerwinningPosition = self.study_Player_Positions()
+            if playerwinningPosition > 0:
+                return playerwinningPosition
+            
         #Tiene que buscar un patrón de posible gane
         machineWinningPositions = self.study_Machine_Positions()
         if machineWinningPositions > 0:
@@ -86,6 +65,19 @@ class MachineAI:
             if self.test_Victory() == 'machine':
                 return space
             self.build_Current_Board(self.backupBoard)
+        return 0
+
+    def study_Moves(self):
+        """
+          Returns a move if it is necesary
+        """
+        if MachineAI.turns == 1:
+            cornerNums = [1, 3, 7 , 9]
+            allCornersAvailable = True
+            for corner in cornerNums:
+                if corner not in self.currentBoard[0] and corner not in self.currentBoard[2]:
+                    allCornersAvailable = False
+                    return 5
         return 0
 
     def get_free_Spaces(self):
