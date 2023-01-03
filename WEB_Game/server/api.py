@@ -42,6 +42,7 @@ def machine_move():
 @app.route("/restart", methods = ['PUT'])
 def restart_game():
     game.restartGame()
+    return jsonify({'board' : game.get_board()})
 
 if __name__ == "__main__":
     app.run(port=8080)
