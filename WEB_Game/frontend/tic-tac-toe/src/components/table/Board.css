@@ -1,0 +1,7 @@
+.board{
+    /* margin-right: 50%;
+    margin-left: 50%; */
+    display: block;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+}

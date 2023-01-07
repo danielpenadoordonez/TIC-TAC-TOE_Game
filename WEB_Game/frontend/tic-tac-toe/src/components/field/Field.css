@@ -1,0 +1,16 @@
+.field{
+    text-align: center;
+    background-color: rgb(49, 127, 155);
+    border: 2px solid darkblue;
+    font-size: 30px;
+    font-weight: 800;
+    width: 10%;
+    height: 200px;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.field h1{
+    text-align: center;
+    font-size: 75px;
+}
