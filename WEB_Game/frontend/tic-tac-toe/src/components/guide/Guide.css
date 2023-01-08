@@ -3,12 +3,12 @@
     margin-right: auto;
     margin-left: auto;
     display: block;
-    width: 15%;
+    width: 12%;
     text-align: left;
     padding: 0.5%;
     margin-bottom: 3%;
-    margin-top: 0.5%;
-    font-size: 30px;
+    margin-top: 1%;
+    font-size: 20px;
 }
 
 .symbol-area{
@@ -18,7 +18,11 @@
     color: black;
     font-weight: bolder;
     border-radius: 0.5rem;
-    width: 25%;
+    width: 35%;
     text-align: center;
     height: min-content;
+}
+
+#player-symbol{
+    background-color: rgb(49, 127, 155);
 }

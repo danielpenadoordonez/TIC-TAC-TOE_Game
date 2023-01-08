@@ -1,0 +1,21 @@
+div.btn-container{
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    width: 25%;
+    padding-bottom: 0.5%;
+    justify-content: space-between;
+}
+
+.control-btn{
+    background-color: rgb(66, 171, 66);
+    width: 35%;
+    height: 50px;
+    font-weight: bolder;
+    font-size: larger;
+    border-radius: 0.5rem;
+}
+
+#again-btn{
+    background-color: rgb(26, 200, 223);
+}

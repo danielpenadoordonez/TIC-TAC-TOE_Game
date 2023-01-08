@@ -1,7 +1,9 @@
 .board{
-    /* margin-right: 50%;
-    margin-left: 50%; */
-    display: block;
-    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    /* grid-template-columns: repeat(3, auto); */
+    grid-template-columns: auto auto auto;
+    padding: 10px;
     gap: 0px;
+    width: 30%;
+    margin: 10px auto;
 }
