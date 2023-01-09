@@ -18,11 +18,46 @@
     color: black;
     font-weight: bolder;
     border-radius: 0.5rem;
-    width: 35%;
+    width: 30%;
     text-align: center;
     height: min-content;
 }
 
 #player-symbol{
     background-color: rgb(49, 127, 155);
+}
+
+@media screen and (max-width: 400px){
+    .guide-card{
+        width: 70%;
+    }
+
+    .symbol-area{
+        width: 25%;
+    }
+}
+
+/*Phones*/
+@media screen and (max-width: 700px) {
+    .guide-card{
+        width: 70%;
+    }
+
+    .symbol-area{
+        width: 25%;
+    }
+}
+
+/*Tablets*/
+@media screen and (max-width: 1000px) and (min-width: 700px){
+    .guide-card{
+        width: 30%;
+    }
+}
+
+/*iPads*/
+@media screen and (max-width: 1300px) and (min-width: 1001px){
+    .guide-card{
+        width: 30%;
+    }
 }

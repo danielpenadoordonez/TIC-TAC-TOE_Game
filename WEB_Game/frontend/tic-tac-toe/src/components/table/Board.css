@@ -7,3 +7,30 @@
     width: 30%;
     margin: 10px auto;
 }
+
+@media screen and (max-width: 400px){
+    .board{
+        width: 95%;
+    }
+}
+
+/*Phones*/
+@media screen and (max-width: 700px) {
+    .board{
+        width: 95%;
+    }
+}
+
+/*Tablets*/
+@media screen and (max-width: 1000px) and (min-width: 700px){
+    .board{
+        width: 55%;
+    }
+}
+
+/*iPads*/
+@media screen and (max-width: 1300px) and (min-width: 1001px){
+    .board{
+        width: 55%;
+    } 
+}
