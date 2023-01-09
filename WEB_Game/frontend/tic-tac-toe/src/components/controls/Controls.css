@@ -19,3 +19,39 @@ div.btn-container{
 #again-btn{
     background-color: rgb(26, 200, 223);
 }
+
+
+@media screen and (max-width: 400px){
+    div.btn-container{
+        width: 95%;
+    }
+
+    .control-btn{
+        width: 45%;
+    }
+}
+
+/*Phones*/
+@media screen and (max-width: 700px) {
+    div.btn-container{
+        width: 90%;
+    }
+
+    .control-btn{
+        width: 45%;
+    }
+}
+
+/*Tablets*/
+@media screen and (max-width: 1000px) and (min-width: 700px){
+    div.btn-container{
+        width: 50%;
+    }
+}
+
+/*iPads*/
+@media screen and (max-width: 1300px) and (min-width: 1001px){
+    div.btn-container{
+        width: 50%;
+    }
+}
