@@ -1,16 +1,20 @@
 from flask import Flask, request, jsonify, abort
+from flask_cors import CORS, cross_origin
 import json
 from GL.Game import Game
 
 app = Flask(__name__)
-
+#Adding CORS for the app
+CORS(app)
 game = Game()
 
 @app.route('/', methods = ['GET'])
+@cross_origin(origin="*", headers=["Content-Type"])
 def get_board():
     return jsonify({'board' : game.get_board()})
 
 @app.route('/winner', methods = ['GET'])
+@cross_origin(origin="*", headers=["Content-Type"])
 def get_winner():
     winner = game.winner
     if game.numbers_In_Board == 0:
@@ -18,6 +22,7 @@ def get_winner():
     return jsonify({'winner' : winner})
 
 @app.route('/move', methods = ['POST'])
+@cross_origin(origin="*", headers=["Content-Type"])
 def user_move():
     move = None
     try:
@@ -34,15 +39,17 @@ def user_move():
     return jsonify({'board' : game.get_board()})
 
 @app.route('/machine-move', methods = ['GET'])
+@cross_origin(origin="*", headers=["Content-Type"])
 def machine_move():
     game.machineMove()
     game.victory()
     return jsonify({'board' : game.get_board()})
 
 @app.route("/restart", methods = ['PUT'])
+@cross_origin(origin="*", headers=["Content-Type"])
 def restart_game():
     game.restartGame()
     return jsonify({'board' : game.get_board()})
 
 if __name__ == "__main__":
-    app.run(port=8080)
+    app.run(host='0.0.0.0', port=8080)

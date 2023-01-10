@@ -11,3 +11,11 @@
     text-align: center;
     font-size: 60px;
 }
+
+#computer-symbol{
+    background-color: greenyellow;
+}
+
+#player-symbol{
+    background-color: rgb(49, 127, 155);
+}
