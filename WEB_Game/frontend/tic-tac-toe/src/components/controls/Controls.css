@@ -9,6 +9,7 @@ div.btn-container{
 
 .control-btn{
     background-color: rgb(66, 171, 66);
+    color: black;
     width: 35%;
     height: 50px;
     font-weight: bolder;

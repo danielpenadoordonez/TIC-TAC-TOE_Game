@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 game = Game()
 
-@app.route('/', methods = ['GET'])
+@app.route('/get-board', methods = ['GET'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def get_board():
     return jsonify({'board' : game.get_board()})

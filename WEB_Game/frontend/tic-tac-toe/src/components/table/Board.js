@@ -23,9 +23,13 @@ const Board = (props) => {
                         symbol = "X";
                     }
                 }
-                fields.push(<Field value={element} symbol={symbol} />);
+                fields.push(<Field value={element} symbol={symbol} postMove={postMove}/>);
             }
         }
+    }
+
+    const postMove = (value) => {
+        props.postMove(value);
     }
 
     createFields();

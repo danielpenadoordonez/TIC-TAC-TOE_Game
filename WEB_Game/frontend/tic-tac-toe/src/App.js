@@ -8,10 +8,39 @@ function App() {
   const[board, setBoard] = useState([]);
 
   async function loadBoard(){
-    const response = await fetch('http://localhost:8080/');
+    //Makes a GET Request to load the board
+    const response = await fetch('/get-board');
     const data = await response.json();
     setBoard(data.board);
-  } 
+  }
+  
+  async function postMove(value){
+    const body = {'move': value}
+    //Makes a POST Request with the move the user made
+    const response = await fetch('/move', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await response.json();
+    setBoard(data.board);
+  }
+
+  async function restartGame(){
+    //Makes a POST Request to restart the game
+    const response = await fetch('/restart', {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    setBoard(data.board);
+  }
 
   useEffect(() => {
     loadBoard();
@@ -20,8 +49,8 @@ function App() {
   return (
     <div className="App">
       <h1 className='main-title'>TIC-TAC-TOE</h1>
-      <Controls />
-      <Board board={board}/>
+      <Controls restartGame={restartGame}/>
+      <Board board={board} postMove={postMove}/>
       <Guide />
     </div>
   );

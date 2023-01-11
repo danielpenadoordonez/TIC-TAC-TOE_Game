@@ -1,11 +1,16 @@
 import React from "react";
 import './Controls.css'
 
-const Controls = () => {
+const Controls = (props) => {
+
+    const restartGame = () => {
+        props.restartGame();
+    }
+
     return(
         <div className="btn-container">
             <button className="control-btn" id="start-btn">Start Game</button>
-            <button className="control-btn" id="again-btn">Play Again</button>
+            <button className="control-btn" id="again-btn" onClick={restartGame}>Play Again</button>
         </div>
     );
 }

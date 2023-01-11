@@ -9,7 +9,7 @@ const Field = (props) => {
                 </button>;
 
     function postMove() {
-        console.log(`Button Value: ${value}`);
+        props.postMove(value);
     }
 
     //This if will determine if the field on the board will have a color and which one
