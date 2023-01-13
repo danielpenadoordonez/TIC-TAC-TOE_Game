@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, abort
 from flask_cors import CORS, cross_origin
 import json
+import time
 from GL.Game import Game
 
 app = Flask(__name__)
@@ -43,6 +44,7 @@ def user_move():
 def machine_move():
     game.machineMove()
     game.victory()
+    time.sleep(0.5)
     return jsonify({'board' : game.get_board()})
 
 @app.route("/restart", methods = ['PUT'])

@@ -7,9 +7,6 @@ const Board = (props) => {
     let fields = [];
 
     const createFields = () => {
-        // for (let value = 1; value <= 9; value++) {
-        //     fields.push(<Field value={value} />)
-        // }
         for (let value = 0; value < board.length; value++) {
             //Loop for each row on the board
             for (let index = 0; index < board[value].length; index++) {
