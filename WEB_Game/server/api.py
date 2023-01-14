@@ -18,7 +18,7 @@ def get_board():
 @cross_origin(origin="*", headers=["Content-Type"])
 def get_winner():
     winner = game.winner
-    if game.numbers_In_Board == 0:
+    if game.numbers_In_Board() == 0 and winner == None:
         winner = "tie"
     return jsonify({'winner' : winner})
 
