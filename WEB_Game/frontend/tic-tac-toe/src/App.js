@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Board from './components/table/Board';
 import Guide from './components/guide/Guide';
 import Controls from './components/controls/Controls';
+import StartDialog from './components/dialog/StartDialog';
 import './App.css';
 
 function App() {
   const [board, setBoard] = useState([]);
   const [winner, setWinner] = useState(null);
   const[currentPlayer, setCurrentPlayer] = useState('user');
+  const[starter, setStarter] = useState('user');
+  const[level, setLevel] = useState('normal');
 
   async function loadBoard() {
     //Makes a GET Request to load the board
@@ -64,10 +67,23 @@ function App() {
   }
 
   async function checkWinner() {
+    //Makes a GET request to check if there is already a winner
     const response = await fetch('/winner');
     const data = await response.json();
     setWinner(data.winner);
   }
+
+  const startGame = () => {
+    setStarter('');
+    restartGame();
+  }
+
+  const closeDialog = (starter, level) => {
+    setStarter('user')
+    setStarter(starter);
+    setLevel(level);
+    //alert(`Starter: ${starter}  Level: ${level}`);
+}
 
   useEffect(() => {
     loadBoard();
@@ -98,8 +114,9 @@ function App() {
 
   return (
     <div className="App">
+      {!starter && <StartDialog closeDialog={closeDialog}/>}
       <h1 className='main-title'>TIC-TAC-TOE</h1>
-      <Controls restartGame={restartGame} />
+      <Controls startGame={startGame} restartGame={restartGame} />
       <Board board={board} postMove={postMove} />
       <Guide />
     </div>

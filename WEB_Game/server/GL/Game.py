@@ -1,6 +1,7 @@
 from random import randrange
 import time
 from GL.MachineAI import MachineAI
+from GL.AdvancedAI import AdvancedAI
 
 class Game:
 
@@ -17,6 +18,7 @@ class Game:
         self.winner = None
         self.playerOption = 'O'
         self.machineOption = 'X'
+        self.level = "normal"
         self.createBoard()
 
     def createBoard(self):
@@ -36,8 +38,11 @@ class Game:
         self.board.append(self.row1)
         self.board.append(self.row2)
         self.board.append(self.row3)
-        MachineAI.turns = 0
-        MachineAI.hasCenterPosition = False
+        if self.level == "advanced":
+            AdvancedAI.turns = 0
+        else:
+            MachineAI.turns = 0
+        #MachineAI.hasCenterPosition = False
 
     def enterMove(self, move):
         cont = 1
@@ -57,7 +62,10 @@ class Game:
             cont += 1          
 
     def machineMove(self):
-        machineAI = MachineAI(self.board, self.playerOption, self.machineOption)
+        if self.level == "advanced":
+            machineAI = AdvancedAI(self.board, self.playerOption, self.machineOption)
+        else:
+            machineAI = MachineAI(self.board, self.playerOption, self.machineOption)
         #Ciclo para validar que la opcion aleatoria este disponible
         machineChoice = 0
         invalid = True
