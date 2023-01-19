@@ -11,6 +11,7 @@ function App() {
   const[currentPlayer, setCurrentPlayer] = useState('user');
   const[starter, setStarter] = useState('user');
   const[level, setLevel] = useState('normal');
+  const[gamesPlayed, setGamesPlayed] = useState(0);
 
   async function loadBoard() {
     //Makes a GET Request to load the board
@@ -36,12 +37,12 @@ function App() {
     //Check if the player won or if there is a tie
     checkWinner();
     //Set the next turn for the computer
-    setCurrentPlayer('computer');
+    setCurrentPlayer('machine');
   }
 
   async function getComputerMove() {
     //Make a GET Request to fetch the computer move
-    const response = await fetch('/machine-move');
+    const response = await fetch('/machine-move?level=' + level);
     const data = await response.json();
     setBoard(data.board);
 
@@ -53,6 +54,15 @@ function App() {
 
   async function restartGame() {
     //Makes a POST Request to restart the game
+    //There are two calls to the restart endpoint to implement a workaround
+    //for a bug where the board wasn't restarted properly
+    await fetch('/restart', {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
     const response = await fetch('/restart', {
       method: 'PUT',
       mode: 'cors',
@@ -63,7 +73,8 @@ function App() {
     const data = await response.json();
     setBoard(data.board);
     checkWinner();
-    setCurrentPlayer('user');
+    //setCurrentPlayer('user');
+    setGamesPlayed(gamesPlayed + 1);
   }
 
   async function checkWinner() {
@@ -79,10 +90,8 @@ function App() {
   }
 
   const closeDialog = (starter, level) => {
-    setStarter('user')
     setStarter(starter);
     setLevel(level);
-    //alert(`Starter: ${starter}  Level: ${level}`);
 }
 
   useEffect(() => {
@@ -92,11 +101,13 @@ function App() {
   useEffect(() => {
     if (winner === 'user') {
       alert("You won!!");
-      restartGame()
+      restartGame();
+      setStarter(winner);
     } else {
       if (winner === 'machine') {
         alert("Machine won!!");
         restartGame();
+        setStarter(winner);
       } else{
         if (winner === 'tie'){
           alert("Tie!!");
@@ -107,10 +118,17 @@ function App() {
   }, [winner]);
 
   useEffect(() => {
-    if(winner === null && currentPlayer === 'computer'){
+    if(currentPlayer === 'machine'){
       getComputerMove();
     }
   }, [currentPlayer]);
+
+  useEffect(() => {
+    //Each time the starter changes or a new game start this code runs
+    if(starter === 'machine'){
+      getComputerMove();
+    }
+  }, [starter, gamesPlayed]);
 
   return (
     <div className="App">

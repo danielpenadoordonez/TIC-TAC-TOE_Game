@@ -41,19 +41,27 @@ const DialogOverlay = (props) => {
             <section>
                 <h1>Who starts?</h1>
                 <div className="btns" onChange={onStarterSelected}>
-                    <input type="radio" id="computer" value="computer" checked={selectedStarter === "computer"}/>
-                    <label for="computer">Computer</label>
-                    <input type="radio" id="player" value="player" checked={selectedStarter === "player"}/>
-                    <label for="player">Player</label>
+                    <div className="rdb">
+                        <input type="radio" id="machine" value="machine" checked={selectedStarter === "machine"}/>
+                        <label for="machine">Computer</label>
+                    </div>
+                    <div className="rdb">
+                        <input type="radio" id="player" value="player" checked={selectedStarter === "player"}/>
+                        <label for="player">Player</label>
+                    </div>
                 </div>
             </section>
             <section>
                 <h1>Computer level</h1>
                 <div className="btns" onChange={onLevelSelected}>
-                    <input type="radio" id="normal" value="normal" checked={selectedLevel === "normal"}/>
-                    <label for="normal">Normal</label>
-                    <input type="radio" id="advanced" value="advanced" checked={selectedLevel === "advanced"}/>
-                    <label for="advanced">Advanced</label>
+                    <div className="rdb">
+                        <input type="radio" id="normal" value="normal" checked={selectedLevel === "normal"}/>
+                        <label for="normal">Normal</label>
+                    </div>
+                    <div className="rdb">
+                        <input type="radio" id="advanced" value="advanced" checked={selectedLevel === "advanced"}/>
+                        <label for="advanced">Advanced</label>
+                    </div>
                 </div>
             </section>
             <footer>

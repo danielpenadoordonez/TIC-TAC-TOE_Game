@@ -29,7 +29,7 @@
 
 .btns{
     display: flex;
-    width: 52%;
+    width: 60%;
     padding-bottom: 0.5%;
     justify-content: space-between;
 }
@@ -52,6 +52,20 @@ button{
     margin-bottom: 3%;
     width: auto;
     background-color: rgb(26, 200, 223);
+}
+
+/* label{
+    background-color: rgb(15, 211, 15);
+    padding: 2%;
+    border-radius: 0.5rem;
+    color: black;
+} */
+
+.rdb{
+    background-color: rgb(15, 211, 15);
+    padding: 2%;
+    border-radius: 0.5rem;
+    color: black;
 }
 
 /*Phones*/

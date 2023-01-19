@@ -42,9 +42,30 @@ def user_move():
 @app.route('/machine-move', methods = ['GET'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def machine_move():
+    #Get the query parameters to get the game level
+    params = request.args
+    #Game levels
+    levels = ['normal', 'advanced']
+
+    if len(params.keys()) == 0:
+        abort(400, "You must specify the game level")
+    elif len(params.keys()) > 1:
+        abort(400, "You must only specify the game level")
+    
+    #Check that the level key is sent
+    if 'level' not in params.keys():
+        abort(404, "No level requested")
+
+    gameLevel = params.get('level')
+    if gameLevel not in levels:
+        abort(404, "Level requested doesn't exist")
+
+    #Asign the level to the game instance
+    game.level = gameLevel
+
     game.machineMove()
     game.victory()
-    time.sleep(0.5)
+    time.sleep(0.3)
     return jsonify({'board' : game.get_board()})
 
 @app.route("/restart", methods = ['PUT'])

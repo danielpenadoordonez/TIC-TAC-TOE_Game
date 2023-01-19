@@ -18,7 +18,7 @@ class Game:
         self.winner = None
         self.playerOption = 'O'
         self.machineOption = 'X'
-        self.level = "normal"
+        self.level = ""
         self.createBoard()
 
     def createBoard(self):
