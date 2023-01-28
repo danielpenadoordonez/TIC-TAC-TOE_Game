@@ -1,10 +1,10 @@
 FROM python:3.10-slim-buster
 
-COPY . /tictactoe-server
+COPY . /api
 
-WORKDIR /tictactoe-server
+WORKDIR /api
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt && rm Dockerfile
 
 EXPOSE 8080
 

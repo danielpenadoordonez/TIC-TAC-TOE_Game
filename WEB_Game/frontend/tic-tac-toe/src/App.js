@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Board from './components/table/Board';
-import Guide from './components/guide/Guide';
+import Score from './components/guide/Score';
 import Controls from './components/controls/Controls';
 import StartDialog from './components/dialog/StartDialog';
 import './App.css';
@@ -12,6 +12,7 @@ function App() {
   const[starter, setStarter] = useState('user');
   const[level, setLevel] = useState('normal');
   const[gamesPlayed, setGamesPlayed] = useState(0);
+  const[score, setScore] = useState({"player": 0, "machine": 0});
 
   async function loadBoard() {
     //Makes a GET Request to load the board
@@ -86,6 +87,7 @@ function App() {
 
   const startGame = () => {
     setStarter('');
+    setScore({"player": 0, "machine": 0});
     restartGame();
   }
 
@@ -103,11 +105,13 @@ function App() {
       alert("You won!!");
       restartGame();
       setStarter(winner);
+      setScore({"player": score.player += 1, "machine": score.machine})
     } else {
       if (winner === 'machine') {
         alert("Machine won!!");
         restartGame();
         setStarter(winner);
+        setScore({"player": score.player, "machine": score.machine += 1})
       } else{
         if (winner === 'tie'){
           alert("Tie!!");
@@ -136,7 +140,7 @@ function App() {
       <h1 className='main-title'>TIC-TAC-TOE</h1>
       <Controls startGame={startGame} restartGame={restartGame} />
       <Board board={board} postMove={postMove} />
-      <Guide />
+      <Score score={score}/>
     </div>
   );
 }

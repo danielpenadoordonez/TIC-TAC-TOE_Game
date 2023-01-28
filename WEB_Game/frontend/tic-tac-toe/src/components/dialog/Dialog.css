@@ -29,8 +29,9 @@
 
 .btns{
     display: flex;
-    width: 60%;
+    width: 70%;
     padding-bottom: 0.5%;
+    margin-left: 9%;
     justify-content: space-between;
 }
 
