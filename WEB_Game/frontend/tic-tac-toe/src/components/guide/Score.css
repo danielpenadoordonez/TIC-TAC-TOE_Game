@@ -3,7 +3,7 @@
     margin-right: auto;
     margin-left: auto;
     display: block;
-    width: 12%;
+    width: 15%;
     text-align: left;
     padding: 0.5%;
     margin-bottom: 3%;
@@ -13,18 +13,28 @@
 
 .symbol-area{
     background-color: greenyellow;
-    float: right;
+    /* float: right; */
     padding: 1%;
     color: black;
     font-weight: bolder;
     border-radius: 0.5rem;
-    width: 30%;
+    width: 31.5%;
     text-align: center;
     height: min-content;
 }
 
 #player-symbol{
     background-color: rgb(49, 127, 155);
+    width: auto;
+    height: auto;
+}
+
+.score{
+    display: grid;
+}
+
+#player-section{
+    float: right;
 }
 
 @media screen and (max-width: 400px){
@@ -44,13 +54,17 @@
     }
 
     .symbol-area{
-        width: 25%;
+        width: 30%;
     }
 }
 
 /*Tablets*/
 @media screen and (max-width: 1000px) and (min-width: 700px){
     .guide-card{
+        width: 35%;
+    }
+
+    .symbol-area{
         width: 30%;
     }
 }
@@ -59,5 +73,9 @@
 @media screen and (max-width: 1300px) and (min-width: 1001px){
     .guide-card{
         width: 30%;
+    }
+
+    .symbol-area{
+        width: 26%;
     }
 }

@@ -55,12 +55,9 @@ button{
     background-color: rgb(26, 200, 223);
 }
 
-/* label{
-    background-color: rgb(15, 211, 15);
-    padding: 2%;
-    border-radius: 0.5rem;
-    color: black;
-} */
+section h1{
+    margin-left: 20%;
+}
 
 .rdb{
     background-color: rgb(15, 211, 15);

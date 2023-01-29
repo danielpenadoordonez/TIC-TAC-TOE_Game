@@ -9,8 +9,12 @@
 
 .field h1{
     text-align: center;
-    font-size: 60px;
+    font-size: 30px;
     color: black;
+}
+
+.field:hover{
+    background-color: rgb(206, 193, 193);
 }
 
 #computer-symbol{
