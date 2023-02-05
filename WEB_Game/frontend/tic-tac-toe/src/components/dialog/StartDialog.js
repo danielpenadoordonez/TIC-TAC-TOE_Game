@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { NotificationManager } from 'react-notifications';
 import ReactDOM from "react-dom";
 import './Dialog.css';
+import 'react-notifications/lib/notifications.css';
 
 const Backdrop = () => {
     return (
@@ -26,10 +28,10 @@ const DialogOverlay = (props) => {
         event.preventDefault();
         //Check if user selected starter and level
         if(selectedStarter === ''){
-            alert("You need to choose who starts");
+            NotificationManager.error("You need to choose who starts", "No Starter", 5000);
         } else {
             if (selectedLevel === ''){
-                alert("You need to choose a level");
+                NotificationManager.error("You need to choose a level", "No Level", 5000);
             } else {
                 props.closeDialog(selectedStarter, selectedLevel);
             }

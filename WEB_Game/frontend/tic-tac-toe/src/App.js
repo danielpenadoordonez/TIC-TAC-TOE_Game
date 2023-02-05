@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import Board from './components/table/Board';
 import Score from './components/guide/Score';
 import Controls from './components/controls/Controls';
 import StartDialog from './components/dialog/StartDialog';
 import './App.css';
+import 'react-notifications/lib/notifications.css';
 
 function App() {
   const [board, setBoard] = useState([]);
@@ -102,19 +104,19 @@ function App() {
 
   useEffect(() => {
     if (winner === 'user') {
-      alert("You won!!");
+      NotificationManager.success("You won!!", "Winner", 5000);
       restartGame();
       setStarter(winner);
       setScore({"player": score.player += 1, "machine": score.machine})
     } else {
       if (winner === 'machine') {
-        alert("Machine won!!");
+        NotificationManager.warning("Machine won!!", "Winner", 5000);
         restartGame();
         setStarter(winner);
         setScore({"player": score.player, "machine": score.machine += 1})
       } else{
         if (winner === 'tie'){
-          alert("Tie!!");
+          NotificationManager.info("Tie!!", "Winner", 5000);
           restartGame();
         }
       }
@@ -141,6 +143,7 @@ function App() {
       <Controls startGame={startGame} restartGame={restartGame} />
       <Board board={board} postMove={postMove} />
       <Score score={score}/>
+      <NotificationContainer />
     </div>
   );
 }
