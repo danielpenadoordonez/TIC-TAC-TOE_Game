@@ -4,6 +4,7 @@ import classes from './Board.css';
 
 const Board = (props) => {
     const board = props.board;
+    const enabled = props.enabled //Boolean value that determines if the button is enabled or not
     let fields = [];
 
     const createFields = () => {
@@ -20,7 +21,7 @@ const Board = (props) => {
                         symbol = "X";
                     }
                 }
-                fields.push(<Field value={element} symbol={symbol} postMove={postMove}/>);
+                fields.push(<Field value={element} symbol={symbol} postMove={postMove} enabled={enabled}/>);
             }
         }
     }

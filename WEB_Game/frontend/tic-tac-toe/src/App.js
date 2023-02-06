@@ -15,6 +15,7 @@ function App() {
   const[level, setLevel] = useState('normal');
   const[gamesPlayed, setGamesPlayed] = useState(0);
   const[score, setScore] = useState({"player": 0, "machine": 0});
+  const[disableBoard, setDisableBoard] = useState(true);
 
   async function loadBoard() {
     //Makes a GET Request to load the board
@@ -41,6 +42,8 @@ function App() {
     checkWinner();
     //Set the next turn for the computer
     setCurrentPlayer('machine');
+    //Disable board temporarely
+    setDisableBoard(true);
   }
 
   async function getComputerMove() {
@@ -53,6 +56,8 @@ function App() {
     checkWinner();
     //Set the next turn for the user
     setCurrentPlayer('user');
+    //Enable the board again
+    setDisableBoard(false);
   }
 
   async function restartGame() {
@@ -96,6 +101,8 @@ function App() {
   const closeDialog = (starter, level) => {
     setStarter(starter);
     setLevel(level);
+    //Activate the board for the game
+    setDisableBoard(false);
 }
 
   useEffect(() => {
@@ -104,19 +111,19 @@ function App() {
 
   useEffect(() => {
     if (winner === 'user') {
-      NotificationManager.success("You won!!", "Winner", 5000);
+      NotificationManager.success("You won!!", "", 5000);
       restartGame();
       setStarter(winner);
       setScore({"player": score.player += 1, "machine": score.machine})
     } else {
       if (winner === 'machine') {
-        NotificationManager.warning("Machine won!!", "Winner", 5000);
+        NotificationManager.warning("Machine won!!", "", 5000);
         restartGame();
         setStarter(winner);
         setScore({"player": score.player, "machine": score.machine += 1})
       } else{
         if (winner === 'tie'){
-          NotificationManager.info("Tie!!", "Winner", 5000);
+          NotificationManager.info("Tie!!", "", 5000);
           restartGame();
         }
       }
@@ -141,7 +148,7 @@ function App() {
       {!starter && <StartDialog closeDialog={closeDialog}/>}
       <h1 className='main-title'>TIC-TAC-TOE</h1>
       <Controls startGame={startGame} restartGame={restartGame} />
-      <Board board={board} postMove={postMove} />
+      <Board board={board} postMove={postMove} enabled={disableBoard}/>
       <Score score={score}/>
       <NotificationContainer />
     </div>
