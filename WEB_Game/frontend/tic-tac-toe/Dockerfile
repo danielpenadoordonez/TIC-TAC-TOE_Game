@@ -4,7 +4,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install && rm Dockerfile
+RUN npm install
 
 EXPOSE 3000
 

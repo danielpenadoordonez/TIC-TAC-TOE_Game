@@ -4,7 +4,8 @@ COPY . /api
 
 WORKDIR /api
 
-RUN pip3 install -r requirements.txt && rm Dockerfile
+RUN pip3 install -r requirements.txt && apt-get update && \
+apt-get install curl vim -y
 
 EXPOSE 8080
 
