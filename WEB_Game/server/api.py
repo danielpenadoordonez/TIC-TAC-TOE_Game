@@ -146,6 +146,20 @@ def restart_game():
     return jsonify({'board' : game.get_board()})
 
 
+@tctctoe_server.route("/delete-session", methods = ['DELETE'])
+@cross_origin(origin="*", headers=["Content-Type"])
+def delete_game_session():
+    #Get the query parameters to get the game id
+    params = request.args
+    #Check the game id information is correct
+    Utils.check_game_id(params, game_sessions)
+    game:Game = game_sessions.get(params.get('game_id'))
+
+    #Delete the game session specified
+    game_id = params.get('game_id')
+    del game_sessions[game_id]
+    print(f"Game session {game_id} has been deleted")
+    return jsonify({'board' : game.get_board()})
 
 
 if __name__ == "__main__":

@@ -4,8 +4,8 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install
+RUN npm install && apk update && apk --no-cache add curl && rm Dockerfile
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "start"] 

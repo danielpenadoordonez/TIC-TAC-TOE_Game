@@ -112,6 +112,18 @@ function App() {
     setWinner(data.winner);
   }
 
+  async function deleteGameSession() {
+    //Makes a DELETE request to remove the game session
+    const response = await fetch(`/delete-session?game_id=${game_id}`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+  }
+
   const startGame = () => {
     setStarter('');
     setScore({ "player": 0, "machine": 0 });
@@ -163,6 +175,20 @@ function App() {
       getComputerMove();
     }
   }, [starter, gamesPlayed]);
+
+  useEffect(() => {
+    //Function called when window is closed
+    const onWindowClosed = event => {
+      event.preventDefault();
+      deleteGameSession();
+    };
+
+    window.addEventListener('beforeunload', onWindowClosed);
+
+    return () => {
+      window.removeEventListener('beforeunload', onWindowClosed);
+    };
+  }, []);
 
   return (
     <div className="App">
