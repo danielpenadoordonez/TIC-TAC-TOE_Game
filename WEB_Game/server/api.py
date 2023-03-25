@@ -8,8 +8,8 @@ from GL.Game import Game
 from Utils.Utils import Utils
 
 tctctoe_server = Flask(__name__)
-#tctctoe_server.secret_key = os.environ.get('secret_key')
-tctctoe_server.secret_key = 'secretkey' #ONLY DURING DEVELOPMENT
+tctctoe_server.secret_key = os.environ.get('sec_key')
+#tctctoe_server.secret_key = 'secretkey' #ONLY DURING DEVELOPMENT
 #Adding CORS for the app
 CORS(tctctoe_server)
 game_sessions= dict()
