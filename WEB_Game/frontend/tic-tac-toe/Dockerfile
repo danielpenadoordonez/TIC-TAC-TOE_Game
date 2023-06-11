@@ -4,7 +4,9 @@ COPY . /app
 
 WORKDIR /app
 
-RUN npm install && apk update && apk --no-cache add curl
+RUN npm install 
+
+RUN apk update && apk --no-cache add curl
 
 EXPOSE 3000
 
