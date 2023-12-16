@@ -1,18 +1,18 @@
 services:
   tctctoe-api-svc:
     container_name: tctctoe-api
-    image: danielpenado/tctctoe-api:v1
+    image: danielpenado/tctctoe-api
     ports:
       - "8080:8080"
     restart: always
     environment:
-      - sec_key=<secret_key>
+      - sec_key=tctc_key
     networks:
       - tctctoe-net
 
   tctctoe-ui-svc:
     container_name: tctctoe-ui
-    image: danielpenado/tctctoe-ui:v1
+    image: danielpenado/tctctoe-ui
     ports:
       - "80:3000"
     restart: always
