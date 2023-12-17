@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN npm install 
 
-RUN apk update && apk --no-cache add curl
+RUN apk update && apk --no-cache add curl && sed -i s/localhost/tctctoe-api-svc/ package.json
 
 EXPOSE 3000
 
