@@ -6,11 +6,11 @@ if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "main"){
     ])
 }
 
+def ui_image
+def api_image
+
 pipeline { 
     agent any
-
-    def ui_image
-    def api_image
 
     stages {
         stage('Build') {
