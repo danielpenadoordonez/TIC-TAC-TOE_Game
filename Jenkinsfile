@@ -12,7 +12,8 @@ pipeline {
     stages {
         stage('Build') {
             steps{
-                echo 'Building Tic-Tac-Toe game................'    
+                echo 'Building Tic-Tac-Toe game................'
+                sh 'ls'    
             }
         }
         stage('Test'){
