@@ -12,17 +12,17 @@ pipeline {
     stages {
         stage('Build') {
             steps{
-                echo 'Building Tic-Tac-Toe game'    
+                echo 'Building Tic-Tac-Toe game................'    
             }
         }
         stage('Test'){
             steps{
-                echo 'Testing Tic-Tac-Toe game'    
+                echo 'Testing Tic-Tac-Toe game....................'    
             }
         }
         stage('Deploy'){
             steps{
-                echo 'Deploying Tic-Tac-Toe game'    
+                echo 'Deploying Tic-Tac-Toe game...................'    
             }
         }
     }
