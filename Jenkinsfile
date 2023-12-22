@@ -1,3 +1,11 @@
+if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "main"){
+    properties([
+        pipelineTriggers([
+            pollSCM("*/5 * * * *")
+        ])
+    ])
+}
+
 pipeline { 
     agent any
 
