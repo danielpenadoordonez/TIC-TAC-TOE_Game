@@ -25,11 +25,7 @@ pipeline {
         stage('Test'){
             steps{
                 script{
-                    echo 'Testing Tic-Tac-Toe game....................'
-                    api_image.inside {
-                        sh 'ls'
-                        sh 'pwd'
-                    }    
+                    echo 'Testing Tic-Tac-Toe game....................'   
                 }
             }
         }
@@ -37,8 +33,8 @@ pipeline {
             steps{
                 script{
                     echo 'Publishing Tic-Tac-Toe images to Docker Hub...................'
-                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpwd')]) {
-                        sh "docker login -u danielpenado -p ${dockerpwd}"
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+                        sh "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
                         api_image.push()
                         ui_image.push()
                     }
