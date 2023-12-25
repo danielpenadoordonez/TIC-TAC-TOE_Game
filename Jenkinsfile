@@ -23,6 +23,8 @@ pipeline {
                 dir('WEB_GAME/server'){
                     script{
                         sh 'ls'
+                        sh 'pwd'
+                        api_image = docker.build("danielpenado/tctctoe-api")
                     }
                 }
             }
