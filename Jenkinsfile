@@ -15,11 +15,13 @@ pipeline {
     stages {
         stage('Build') {
             steps{
-                script{
-                    echo 'Building Tic-Tac-Toe images................'
-                    api_image = docker.build("danielpenado/tctctoe-api", "WEB_GAME/server/")    
-                    ui_image = docker.build("danielpenado/tctctoe-ui", "WEB_GAME/frontend/tic-tac-toe/")
-                }
+                // script{
+                //     echo 'Building Tic-Tac-Toe images................'
+                //     api_image = docker.build("danielpenado/tctctoe-api", "WEB_GAME/server/")    
+                //     ui_image = docker.build("danielpenado/tctctoe-ui", "WEB_GAME/frontend/tic-tac-toe/")
+                // }
+                sh 'docker build WEB_GAME/server -t danielpenado/tctctoe-api'
+                sh 'docker build WEB_GAME/frontend/tic-tac-toe -t danielpenado/tctctoe-ui'
             }
         }
         stage('Test'){
