@@ -20,13 +20,6 @@ pipeline {
                     api_image = docker.build("danielpenado/tctctoe-api", "WEB_Game/server/")    
                     ui_image = docker.build("danielpenado/tctctoe-ui", "WEB_Game/frontend/tic-tac-toe/")
                 }
-                // dir('WEB_GAME/server'){
-                //     script{
-                //         sh 'ls'
-                //         sh 'pwd'
-                //         api_image = docker.build("danielpenado/tctctoe-api")
-                //     }
-                // }
             }
         }
         stage('Test'){
@@ -34,7 +27,8 @@ pipeline {
                 script{
                     echo 'Testing Tic-Tac-Toe game....................'
                     api_image.inside {
-                        sh 'echo run API tests'
+                        sh 'ls'
+                        sh 'pwd'
                     }    
                 }
             }
@@ -43,12 +37,20 @@ pipeline {
             steps{
                 script{
                     echo 'Publishing Tic-Tac-Toe images to Docker Hub...................'
-                    api_image.push()
-                    ui_image.push()  
-                    sh "docker rmi danielpenado/tctctoe-api"  
-                    sh "docker rmi danielpenado/tctctoe-ui"
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerpwd')]) {
+                        sh "docker login -u danielpenado -p ${dockerpwd}"
+                        api_image.push()
+                        ui_image.push()
+                    }
                 }
             }
+        }
+    }
+    post{
+        always{
+            sh "docker rmi danielpenado/tctctoe-api"  
+            sh "docker rmi danielpenado/tctctoe-ui"
+            sh "docker logout"
         }
     }
 }
