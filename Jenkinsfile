@@ -29,7 +29,7 @@ pipeline {
                     dir('WEB_Game'){
                         sh 'docker compose up -d'
                     }  
-                    sh 'docker exec -it tctctoe-api python3 -m unittest tests/test*.py'
+                    sh 'docker exec tctctoe-api python3 -m unittest tests/test*.py'
                     sh 'docker compose down'
                 }
             }
