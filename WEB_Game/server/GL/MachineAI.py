@@ -42,7 +42,8 @@ class MachineAI:
         if playerWinningPosition > 0:
             return playerWinningPosition
             
-        return randrange(1, 10)
+        return 0
+    
 
     def study_Player_Positions(self):
         #Se traen los espacios disponibles
