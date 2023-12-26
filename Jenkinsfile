@@ -28,9 +28,9 @@ pipeline {
                     echo 'Testing Tic-Tac-Toe game....................' 
                     dir('WEB_Game'){
                         sh 'docker compose up -d'
+                        sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
+                        sh 'docker compose down'
                     }  
-                    sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
-                    sh 'docker compose down'
                 }
             }
         }
