@@ -1,7 +1,7 @@
 if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "main"){
     properties([
         pipelineTriggers([
-            pollSCM("*/5 * * * *")
+            pollSCM("*/3 * * * *")
         ])
     ])
 }
@@ -25,7 +25,12 @@ pipeline {
         stage('Test'){
             steps{
                 script{
-                    echo 'Testing Tic-Tac-Toe game....................'   
+                    echo 'Testing Tic-Tac-Toe game....................' 
+                    dir('WEB_Game'){
+                        sh 'docker compose up -d'
+                    }  
+                    sh 'docker exec -it tctctoe-api python3 -m unittest tests/test*.py'
+                    sh 'docker compose down'
                 }
             }
         }
