@@ -38,10 +38,7 @@ class Game:
         self.board.append(self.row1)
         self.board.append(self.row2)
         self.board.append(self.row3)
-        if self.level == "advanced":
-            AdvancedAI.turns = 0
-        else:
-            MachineAI.turns = 0
+        MachineAI.turns = 0
         #MachineAI.hasCenterPosition = False
 
     def enterMove(self, move):
@@ -71,6 +68,7 @@ class Game:
         invalid = True
         while invalid:
             randNum = machineAI.runAI()
+            randNum = randrange(1, 10) if randNum == 0 else randNum
             if randNum in self.row1 or randNum in self.row2 or randNum in self.row3:
                 invalid = False 
                 machineChoice = randNum 
