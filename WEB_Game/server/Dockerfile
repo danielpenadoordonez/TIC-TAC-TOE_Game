@@ -9,4 +9,4 @@ apt-get install curl vim -y
 
 EXPOSE 8080
 
-CMD ["python3", "api.py"]
+CMD ["gunicorn", "-w 4", "-b", "0.0.0.0:8080", "api:tctctoe_server"]
