@@ -8,14 +8,18 @@ RUN npm install
 
 RUN apk update && apk --no-cache add curl && sed -i s/localhost/tctctoe-api-svc/ package.json
 
-RUN npm run build
+EXPOSE 3000
 
-FROM nginx:alpine
+CMD ["npm", "start"]
 
-COPY --from=build /app/build /usr/share/nginx/html
+# RUN npm run build
 
-COPY nginx.conf /etc/nginx/nginx.conf
+# FROM nginx:alpine
 
-EXPOSE 80
+# COPY --from=build /app/build /usr/share/nginx/html
 
-CMD ["nginx", "-g", "daemon off;"] 
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+# EXPOSE 80
+
+# CMD ["nginx", "-g", "daemon off;"] 
