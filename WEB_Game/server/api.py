@@ -16,7 +16,7 @@ game_sessions= dict()
 
 
 
-@tctctoe_server.route('/api/get-game-id', methods = ['GET'])
+@tctctoe_server.route('api/get-game-id', methods = ['GET'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def create_game_instance():
 
@@ -38,7 +38,7 @@ def create_game_instance():
 
 
 
-@tctctoe_server.route('/api/get-board', methods = ['GET'])
+@tctctoe_server.route('api/get-board', methods = ['GET'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def get_board():
     #Get the query parameters to get the game id
@@ -52,7 +52,7 @@ def get_board():
 
 
 
-@tctctoe_server.route('/api/winner', methods = ['GET'])
+@tctctoe_server.route('api/winner', methods = ['GET'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def get_winner():
     #Get the query parameters to get the game id
@@ -70,7 +70,7 @@ def get_winner():
 
 
 
-@tctctoe_server.route('/api/move', methods = ['POST'])
+@tctctoe_server.route('api/move', methods = ['POST'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def user_move():
     #Get the query parameters to get the game id
@@ -98,7 +98,7 @@ def user_move():
 
 
 
-@tctctoe_server.route('/api/machine-move', methods = ['GET'])
+@tctctoe_server.route('api/machine-move', methods = ['GET'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def machine_move():
     #Get the query parameters to get the game level and id
@@ -133,7 +133,7 @@ def machine_move():
 
 
 
-@tctctoe_server.route("/api/restart", methods = ['PUT'])
+@tctctoe_server.route("api/restart", methods = ['PUT'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def restart_game():
     #Get the query parameters to get the game id
@@ -146,7 +146,7 @@ def restart_game():
     return jsonify({'board' : game.get_board()})
 
 
-@tctctoe_server.route("/api/delete-session", methods = ['DELETE'])
+@tctctoe_server.route("api/delete-session", methods = ['DELETE'])
 @cross_origin(origin="*", headers=["Content-Type"])
 def delete_game_session():
     #Get the query parameters to get the game id
