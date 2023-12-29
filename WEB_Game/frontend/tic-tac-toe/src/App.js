@@ -31,7 +31,7 @@ function App() {
   // }
 
   async function loadBoard() {
-    const gameid_response = await fetch('/get-game-id');
+    const gameid_response = await fetch('/api/get-game-id');
     const gameid_data = await gameid_response.json();
     //setGameId(data.game_id);
     game_id = gameid_data.game_id;
@@ -39,7 +39,7 @@ function App() {
 
     //Makes a GET Request to load the board
     console.log(`GAME ID 2: ${game_id}`);
-    const response = await fetch(`/get-board?game_id=${game_id}`);
+    const response = await fetch(`/api/get-board?game_id=${game_id}`);
     const data = await response.json();
     setBoard(data.board);
   }
@@ -49,7 +49,7 @@ function App() {
     setDisableBoard(true);
     const body = { 'move': value }
     //Makes a POST Request with the move the user made
-    const response = await fetch(`/move?game_id=${game_id}`, {
+    const response = await fetch(`/api/move?game_id=${game_id}`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -68,7 +68,7 @@ function App() {
 
   async function getComputerMove() {
     //Make a GET Request to fetch the computer move
-    const response = await fetch(`/machine-move?level=${level}&game_id=${game_id}`);
+    const response = await fetch(`/api/machine-move?level=${level}&game_id=${game_id}`);
     const data = await response.json();
     setBoard(data.board);
 
@@ -84,14 +84,14 @@ function App() {
     //Makes a POST Request to restart the game
     //There are two calls to the restart endpoint to implement a workaround
     //for a bug where the board wasn't restarted properly
-    await fetch(`/restart?game_id=${game_id}`, {
+    await fetch(`/api/restart?game_id=${game_id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       }
     });
-    const response = await fetch(`/restart?game_id=${game_id}`, {
+    const response = await fetch(`/api/restart?game_id=${game_id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: {
@@ -107,14 +107,14 @@ function App() {
 
   async function checkWinner() {
     //Makes a GET request to check if there is already a winner
-    const response = await fetch(`/winner?game_id=${game_id}`);
+    const response = await fetch(`/api/winner?game_id=${game_id}`);
     const data = await response.json();
     setWinner(data.winner);
   }
 
   async function deleteGameSession() {
     //Makes a DELETE request to remove the game session
-    const response = await fetch(`/delete-session?game_id=${game_id}`, {
+    const response = await fetch(`/api/delete-session?game_id=${game_id}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {
