@@ -7,6 +7,7 @@ services:
     restart: always
     environment:
       - sec_key=tctc_key
+      - gunicorn_timeout=250
     networks:
       - tctctoe-net
 
