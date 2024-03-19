@@ -13,7 +13,7 @@ pipeline {
     agent any
 
     environment {
-        TCTCTOE-MACHINE-API = 'tctctoe-api-svc'
+        TCTCTOE_MACHINE_API = 'tctctoe-api-svc'
     }
 
     stages {
