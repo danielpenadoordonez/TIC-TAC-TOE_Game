@@ -1,7 +1,7 @@
 if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "main"){
     properties([
         pipelineTriggers([
-            pollSCM("*/3 * * * *")
+            pollSCM("*/2 * * * *")
         ])
     ])
 }
@@ -11,6 +11,10 @@ def api_image
 
 pipeline { 
     agent any
+
+    environment {
+        TCTCTOE-MACHINE-API = 'tctctoe-api-svc'
+    }
 
     stages {
         stage('Build') {
@@ -28,7 +32,11 @@ pipeline {
                     echo 'Testing Tic-Tac-Toe game....................' 
                     dir('WEB_Game'){
                         sh 'docker compose up -d'
+                        //Run Backend Unit Tests
                         sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
+                        //Test connection to the nginx server that runs the UI and then the connection from the UI to the API
+                        sh 'curl -v http://localhost'
+                        sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE-MACHINE-API}:8080/api/get-game-id'
                         sh 'docker compose down'
                     }  
                 }

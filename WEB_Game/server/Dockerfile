@@ -11,7 +11,6 @@ ENV gunicorn_timeout=200
 
 EXPOSE 8080
  
-#CMD ["sh", "-c", "gunicorn", "-w 1", "-b", "0.0.0.0:8080", "api:tctctoe_server", "--timeout", "$gunicorn_timeout", "--log-level", "debug"]
 RUN chmod +x start-api.sh
 
 ENTRYPOINT [ "/bin/bash", "-c", "./start-api.sh" ]   
