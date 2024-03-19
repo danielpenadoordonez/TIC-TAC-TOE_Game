@@ -36,7 +36,7 @@ pipeline {
                         sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
                         //Test connection to the nginx server that runs the UI and then the connection from the UI to the API
                         sh 'curl -v http://localhost'
-                        sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE-MACHINE-API}:8080/api/get-game-id'
+                        sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE_MACHINE_API}:8080/api/get-game-id'
                         sh 'docker compose down'
                     }  
                 }
