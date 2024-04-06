@@ -60,7 +60,7 @@ pipeline {
         always{
             script{
                 echo 'Cleaning up the build environment..........................'
-                dir('WEB_GAME'){
+                dir('WEB_Game'){
                     sh 'docker compose down'
                 }
             }
