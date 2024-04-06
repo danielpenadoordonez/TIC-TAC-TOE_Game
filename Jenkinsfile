@@ -14,6 +14,7 @@ pipeline {
 
     environment {
         TCTCTOE_MACHINE_API = 'tctctoe-api-svc'
+        JENKINS_DOCKER_SERVER = 'jenkins-docker'
     }
 
     stages {
@@ -35,14 +36,14 @@ pipeline {
                         //Run Backend Unit Tests
                         sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
                         //Test connection to the nginx server that runs the UI and then the connection from the UI to the API
-                        sh 'curl -v http://localhost'
+                        sh 'curl -v http://${JENKINS_DOCKER_SERVER}'
                         sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE_MACHINE_API}:8080/api/get-game-id'
                         sh 'docker compose down'
                     }  
                 }
             }
         }
-        stage('Deploy'){
+        stage('Release'){
             steps{
                 script{
                     echo 'Publishing Tic-Tac-Toe images to Docker Hub...................'
@@ -57,6 +58,12 @@ pipeline {
     }
     post{
         always{
+            script{
+                echo 'Cleaning up the build environment..........................'
+                dir('WEB_GAME'){
+                    sh 'docker compose down'
+                }
+            }
             sh "docker rmi danielpenado/tctctoe-api"  
             sh "docker rmi danielpenado/tctctoe-ui"
             sh "docker logout"
