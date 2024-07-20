@@ -16,6 +16,10 @@ pipeline {
         TCTCTOE_MACHINE_API = 'tctctoe-api-svc'
         JENKINS_DOCKER_SERVER = 'jenkins-docker'
     }
+    
+    parameters {
+        booleanParam(name: 'DOCKER_COMPOSE_TEST', defaultValue: true, description: 'Run application tests in a Docker Compose environment')
+    }
 
     stages {
         stage('Build') {
@@ -28,22 +32,48 @@ pipeline {
             }
         }
         stage('Test'){
-            steps{
-                script{
-                    echo 'Testing Tic-Tac-Toe game....................' 
-                    dir('WEB_Game'){
-                        sh 'docker compose up -d'
-                        //Run Backend Unit Tests
-                        sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
-                        //Test connection to the nginx server that runs the UI and then the connection from the UI to the API
-                        sh 'curl -v http://${JENKINS_DOCKER_SERVER}'
-                        sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE_MACHINE_API}:8080/api/get-game-id'
-                        sh 'docker compose down'
-                    }  
+            parallel {
+                stage('Testing in Docker Compose'){
+                    when{
+                        expression{
+                            params.'DOCKER_COMPOSE_TEST' == true
+                        }
+                    }
+                    steps{
+                        script{
+                            echo 'Testing Tic-Tac-Toe game....................' 
+                            dir('WEB_Game'){
+                                sh 'docker compose up -d'
+                                //Run Backend Unit Tests
+                                sh 'docker exec tctctoe-api bash -c "python3 -m unittest tests/test*.py"'
+                                //Test connection to the nginx server that runs the UI and then the connection from the UI to the API
+                                sh 'curl -v http://${JENKINS_DOCKER_SERVER}'
+                                sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE_MACHINE_API}:8080/api/get-game-id'
+                                sh 'docker compose down'
+                            }  
+                        }
+                    }
+                }
+                stage('Testing on the host'){
+                    steps{
+                        script{
+                            catchError(stageResult: 'UNSTABLE', buildResult: currentBuild.result){
+                                dir('WEB_Game/server'){
+                                    sh 'python3 api.py'
+                                    //Run Backend Unit Tests
+                                    sh 'python3 -m unittest tests/test*.py'
+                                    sh 'curl -v http://localhost:8080/api/get-game-id'
+                                    //Test connection to the nginx server that runs the UI and then the connection from the UI to the API
+                                    //sh 'curl -v http://${JENKINS_DOCKER_SERVER}'
+                                    //sh 'docker exec tctctoe-ui curl -v http://${TCTCTOE_MACHINE_API}:8080/api/get-game-id'
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-        stage('Release'){
+        stage('Publish images'){
             steps{
                 script{
                     echo 'Publishing Tic-Tac-Toe images to Docker Hub...................'
