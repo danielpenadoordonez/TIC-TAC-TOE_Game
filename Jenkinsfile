@@ -1,3 +1,7 @@
+@Library('cicd-pipeline-library') _
+
+import clss.ImageSpec
+
 if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "main"){
     properties([
         pipelineTriggers([
@@ -6,8 +10,7 @@ if (env.BRANCH_NAME == "master" || env.BRANCH_NAME == "main"){
     ])
 }
 
-def ui_image
-def api_image
+def tctctoeImages = []
 
 pipeline { 
     agent any
@@ -26,8 +29,12 @@ pipeline {
             steps{
                 script{
                     println('Building Tic-Tac-Toe images................')
-                    api_image = docker.build("danielpenado/tctctoe-api", "WEB_Game/server/")    
-                    ui_image = docker.build("danielpenado/tctctoe-ui", "WEB_Game/frontend/tic-tac-toe/")
+
+                    List<ImageSpec> imageSpecs = new ArrayList<ImageSpec>()
+                    imageSpecs.add(new ImageSpec("danielpenado/tctctoe-api", "WEB_Game/server/"))
+                    imageSpecs.add(new ImageSpec("danielpenado/tctctoe-ui", "WEB_Game/frontend/tic-tac-toe/"))
+
+                    tctctoeImages = dockerUtils.buildImages(imageSpecs)
                 }
             }
         }
@@ -80,9 +87,8 @@ pipeline {
                 script{
                     println('Publishing Tic-Tac-Toe images to Docker Hub...................')
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
-                        sh "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
-                        api_image.push()
-                        ui_image.push()
+                        dockerUtils.login(DOCKER_REGISTRY_USER, DOCKER_REGISTRY_PWD)
+                        dockerUtils.pushImages(tctctoeImages)
                     }
                 }
             }
@@ -95,10 +101,9 @@ pipeline {
                 dir('WEB_Game'){
                     sh 'docker compose down'
                 }
+                dockerUtils.removeImages(["danielpenado/tctctoe-api", "danielpenado/tctctoe-ui"])
+                dockerUtils.logout()
             }
-            sh "docker rmi danielpenado/tctctoe-api"  
-            sh "docker rmi danielpenado/tctctoe-ui"
-            sh "docker logout"
         }
     }
 }
