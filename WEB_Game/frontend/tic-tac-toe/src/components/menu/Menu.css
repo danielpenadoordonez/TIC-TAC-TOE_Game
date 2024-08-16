@@ -1,0 +1,95 @@
+div.menu{
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    width: 30%;
+    padding-bottom: 0.5%;
+}
+
+.menu-btn{
+    background-color: rgb(66, 171, 66);
+    color: black;
+    width: 25%;
+    height: 50px;
+    font-weight: bolder;
+    font-size: larger;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    margin-top: 1%;
+}
+
+.link{
+    text-decoration: none;
+}
+
+#image{
+    width: 100%;
+    height: 70%;
+}
+
+#logo{ 
+    width: 75%;
+    border-radius: 2.5rem;
+    height: 330px;
+}
+
+/*Phones*/
+@media screen and (max-width: 700px) {
+
+    div.menu{
+        width: 100%;
+    }
+
+    .menu-btn{
+        width: 90%;
+        margin-top: 3%;
+    }
+
+    #logo{
+        width: 90%;
+    }
+
+    #image{
+        width: 100%;  
+    }
+}
+
+/*Tablets*/
+@media screen and (max-width: 1000px) and (min-width: 700px){
+    div.menu{
+        width: 50%;
+    }
+
+    .menu-btn{
+        width: 45%;
+        margin-top: 3%;
+    }
+
+    #logo{
+        width: 90%;
+    }
+
+    #image{
+        width: 100%;  
+    }
+}
+
+/*iPads*/
+@media screen and (max-width: 1300px) and (min-width: 1001px){
+    div.menu{
+        width: 50%;
+    }
+
+    .menu-btn{
+        width: 45%;
+        margin-top: 3%;
+    }
+
+    #logo{
+        width: 90%;
+    }
+
+    #image{
+        width: 100%;  
+    }
+}
