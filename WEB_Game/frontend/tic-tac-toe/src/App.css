@@ -1,15 +1,77 @@
-.App {
+body{
+  background: linear-gradient(135deg, #0b0e2c 0%, #12173b 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #0ff;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 50px;
+}
+
+.App {
+  background: linear-gradient(135deg, #0b0e2c 0%, #12173b 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #0ff;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+.board-wrapper {
+  position: relative;
+  width: 100%;
+  height: 35vh;
+  background-color: linear-gradient(135deg, #0b0e2c 0%, #12173b 100%); /* fondo por si las partículas no se ven */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .main-title{
-  font-size: 70px;
+  font-size: 5rem;
+  color: rgb(8, 192, 247);
+  text-shadow: 0 0 5px rgb(8, 192, 247), 0 0 5px rgb(8, 192, 247);
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
+
+.mini-board {
+  display: grid;
+  grid-template-columns: repeat(3, 70px);
+  gap: 5px;
+  padding: 10px;
+  background-color: #111;
+  border: 2px solid #0ff;
+  box-shadow: 0 0 15px #0ff;
+}
+
+.cell {
+  width: 70px;
+  height: 70px;
+  border: 1px solid #0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff;
+}
+
+.cell.x {
+  color: #f0f;
+  text-shadow: 0 0 10px #f0f;
+}
+
+.cell.o {
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

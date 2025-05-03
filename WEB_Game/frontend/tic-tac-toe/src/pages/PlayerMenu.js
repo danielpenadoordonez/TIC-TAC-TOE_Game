@@ -2,7 +2,7 @@ import React from "react";
 
 const PlayerMenu = (props) => {
     return(
-        <h1>This section is under development</h1>
+        <h1>Coming soon</h1>
     )
 }
 
