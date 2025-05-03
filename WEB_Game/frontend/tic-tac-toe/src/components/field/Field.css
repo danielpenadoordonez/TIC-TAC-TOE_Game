@@ -1,26 +1,31 @@
 .field{
     text-align: center;
-    background-color: rgb(236, 223, 223);
     border: 2px solid rgb(1, 1, 23);
     padding: 5px;
     border-radius: 0.5rem;
     height: 150px;
+    border: 1px solid #0ff;
+    color: #0ff;
+    text-shadow: 0 0 8px #0ff;
+    background-color: #111;
+    font-size: larger;
 }
 
 .field h1{
     text-align: center;
-    font-size: 30px;
-    color: black;
+    font-size: x-large;
 }
 
 .field:hover{
-    background-color: rgb(206, 193, 193);
+    background-color: #342f2f;
 }
 
 #computer-symbol{
-    background-color: greenyellow;
+    color: #f0f;
+    text-shadow: 0 0 10px #f0f;
 }
 
 #player-symbol{
-    background-color: rgb(49, 127, 155);
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff;
 }

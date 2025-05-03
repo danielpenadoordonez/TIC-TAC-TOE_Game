@@ -193,6 +193,7 @@ function ComputerGame() {
   return (
     <div className="App">
       {!starter && <StartDialog closeDialog={closeDialog} />}
+      <h1 className='main-title'>vs Computer</h1>
       <Controls startGame={startGame} restartGame={restartGame} />
       <Board board={board} postMove={postMove} enabled={disableBoard} />
       <Score score={score} />

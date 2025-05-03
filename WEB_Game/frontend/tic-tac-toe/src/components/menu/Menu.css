@@ -7,16 +7,25 @@ div.menu{
 }
 
 .menu-btn{
-    background-color: rgb(66, 171, 66);
-    color: black;
-    width: 25%;
-    height: 50px;
-    font-weight: bolder;
-    font-size: larger;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    margin-top: 1%;
+  background-color: transparent;
+  border: 2px solid rgb(8, 192, 247);
+  padding: 10px 20px;
+  color: rgb(8, 192, 247);
+  font-size: 1rem;
+  cursor: pointer;
+  text-shadow: 0 0 5px rgb(8, 192, 247);
+  box-shadow: 0 0 10px rgb(8, 192, 247);
+  transition: all 0.3s;
+  width: 30%;
+  margin-top: 3%;
 }
+
+.menu-btn:hover {
+    background-color: rgb(8, 192, 247);
+    color: #000;
+    text-shadow: none;
+    box-shadow: 0 0 20px rgb(8, 192, 247);
+  }
 
 .link{
     text-decoration: none;
